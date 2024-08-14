@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Pesquisar Usuário</title>
+    </h:head>
+    <h:body>
+        <h:form id="formPesquisa">
+
+            <!-- Botão Novo para abrir a página de cadastro de usuário -->
+            <p:commandButton value="Novo" 
+                             action="cadastraUsuario.xhtml" 
+                             icon="pi pi-plus" 
+                             ajax="false" 
+                             styleClass="ui-button-success"/>
+
+            <!-- Painel de Pesquisa -->
+            <p:panel id="panelPesquisa" header="Pesquisar Usuário" rendered="#{pesquisaBean.habilitarPesquisa}">
+                <h:panelGrid columns="4" cellpadding="5">
+
+                    <!-- Campo de Entrada: Nome (fixo) -->
+                    <h:outputLabel for="nome" value="Nome:" />
+                    <p:inputText id="nome" value="#{pesquisaBean.nome}" />
+
+                    <!-- Campo de Entrada: CPF (fixo) -->
+                    <h:outputLabel for="cpf" value="CPF:" />
+                    <p:inputMask id="cpf" mask="999.999.999-99" value="#{pesquisaBean.cpf}" />
+
+                </h:panelGrid>
+
+                <!-- Botão Filtrar que mostra os campos Início e Fim -->
+                <p:commandButton value="Filtrar" 
+                                 actionListener="#{pesquisaBean.mostrarCamposData}" 
+                                 icon="pi pi-filter" 
+                                 update="panelDatas" 
+                                 styleClass="ui-button-primary"/>
+
+                <!-- Campos Início e Fim (escondidos até que o botão Filtrar seja acionado) -->
+                <p:panelGrid id="panelDatas" columns="4" cellpadding="5" rendered="#{pesquisaBean.mostrarDatas}">
+                    <!-- Campo de Entrada: Início do Período -->
+                    <h:outputLabel for="inicio" value="Data de Início:" />
+                    <p:calendar id="inicio" value="#{pesquisaBean.inicio}" pattern="dd/MM/yyyy" showButtonPanel="true" />
+
+                    <!-- Campo de Entrada: Fim do Período -->
+                    <h:outputLabel for="fim" value="Data de Fim:" />
+                    <p:calendar id="fim" value="#{pesquisaBean.fim}" pattern="dd/MM/yyyy" showButtonPanel="true" />
+                </p:panelGrid>
+
+                <!-- Botão Pesquisar -->
+                <p:commandButton value="Pesquisar" 
+                                 action="#{pesquisaBean.pesquisar}" 
+                                 icon="pi pi-search" 
+                                 update="tabelaUsuarios" 
+                                 styleClass="ui-button-primary"/>
+            </p:panel>
+
+            <!-- Tabela de Resultados -->
+            <p:dataTable id="tabelaUsuarios" value="#{pesquisaBean.usuarios}" var="usuario" paginator="true" rows="10" emptyMessage="Nenhum usuário encontrado." 
+                         rendered="#{not empty pesquisaBean.usuarios}">
+
+                <!-- Colunas da Tabela -->
+                <p:column headerText="ID">
+                    <h:outputText value="#{usuario.id}" />
+                </p:column>
+                <p:column headerText="Data de Cadastro">
+                    <h:outputText value="#{usuario.dataCadastro}" />
+                </p:column>
+                <p:column headerText="Nome">
+                    <h:outputText value="#{usuario.nome}" />
+                </p:column>
+                <p:column headerText="CPF">
+                    <h:outputText value="#{usuario.cpf}" />
+                </p:column>
+                <p:column headerText="E-mail">
+                    <h:outputText value="#{usuario.email}" />
+                </p:column>
+                <p:column headerText="Perfil">
+                    <h:outputText value="#{usuario.perfil.descricao}" />
+                </p:column>
+                <p:column headerText="Ações">
+                    <p:commandButton value="Detalhar" 
+                                     action="#{usuarioBean.detalhar(usuario)}" 
+                                     icon="pi pi-search"/>
+                    <p:commandButton value="Editar" 
+                                     action="#{usuarioBean.editar(usuario)}" 
+                                     icon="pi pi-pencil"/>
+                    <p:commandButton value="Excluir" 
+                                     action="#{usuarioBean.excluir(usuario)}" 
+                                     icon="pi pi-times"/>
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+    </h:body>
+</html>

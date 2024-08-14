@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Cadastrar Usuário</title>
+    </h:head>
+    <h:body>
+        <h:form id="formCadastro">
+
+            <!-- Painel de Cadastro -->
+            <p:panel id="panelCadastro" header="Cadastrar Novo Usuário">
+                <h:panelGrid columns="2" cellpadding="5">
+
+                    <!-- Campo de Entrada: Nome -->
+                    <h:outputLabel for="nome" value="Nome:" />
+                    <p:inputText id="nome" value="#{usuarioBean.usuario.nome}" />
+
+                    <!-- Campo de Entrada: CPF -->
+                    <h:outputLabel for="cpf" value="CPF:" />
+                    <p:inputMask id="cpf" mask="999.999.999-99" value="#{usuarioBean.usuario.cpf}" />
+
+                    <!-- Campo de Entrada: E-mail -->
+                    <h:outputLabel for="email" value="E-mail:" />
+                    <p:inputText id="email" value="#{usuarioBean.usuario.email}" />
+
+                    <!-- Campo de Entrada: Perfil -->
+                    <h:outputLabel for="perfil" value="Perfil:" />
+                    <h:selectOneMenu id="perfil" value="#{usuarioBean.usuario.perfil}">
+                        <f:selectItems value="#{usuarioBean.perfis}" var="perfil" itemValue="#{perfil}" itemLabel="#{perfil.descricao}" />
+                    </h:selectOneMenu>
+
+                    <!-- Campo de Entrada: Logradouro -->
+                    <h:outputLabel for="logradouro" value="Logradouro:" />
+                    <p:inputText id="logradouro" value="#{usuarioBean.usuario.endereco.logradouro}" />
+
+                    <!-- Campo de Entrada: Número -->
+                    <h:outputLabel for="numero" value="Número:" />
+                    <p:inputText id="numero" value="#{usuarioBean.usuario.endereco.numero}" />
+
+                    <!-- Campo de Entrada: Bairro -->
+                    <h:outputLabel for="bairro" value="Bairro:" />
+                    <p:inputText id="bairro" value="#{usuarioBean.usuario.endereco.bairro}" />
+
+                    <!-- Campo de Entrada: Cidade -->
+                    <h:outputLabel for="cidade" value="Cidade:" />
+                    <p:inputText id="cidade" value="#{usuarioBean.usuario.endereco.cidade}" />
+
+                    <!-- Campo de Entrada: Estado -->
+                    <h:outputLabel for="estado" value="Estado:" />
+                    <p:inputText id="estado" value="#{usuarioBean.usuario.endereco.estado}" />
+
+                    <!-- Campo de Entrada: CEP -->
+                    <h:outputLabel for="cep" value="CEP:" />
+                    <p:inputMask id="cep" mask="99999-999" value="#{usuarioBean.usuario.endereco.cep}" />
+
+                </h:panelGrid>
+
+                <!-- Botão Salvar -->
+                <p:commandButton value="Salvar" 
+                                 action="#{usuarioBean.salvar()}" 
+                                 icon="pi pi-save" 
+                                 update="formCadastro" 
+                                 styleClass="ui-button-primary"/>
+            </p:panel>
+
+        </h:form>
+    </h:body>
+</html>

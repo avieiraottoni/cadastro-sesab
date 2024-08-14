@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Cadastrar Usuário</title>
+</h:head>
+
+<h:body>
+    <h:form>
+        <h1>Cadastrar Usuário</h1>
+
+        <!-- Campo Nome -->
+        <p:outputLabel for="nome" value="Nome:" />
+        <p:inputText id="nome" value="#{usuarioBean.nome}" required="true" requiredMessage="O nome é obrigatório." />
+        <p:message for="nome" />
+
+        <!-- Campo CPF -->
+        <p:outputLabel for="cpf" value="CPF:" />
+        <p:inputMask id="cpf" mask="999.999.999-99" value="#{usuarioBean.cpf}" required="true" requiredMessage="O CPF é obrigatório." />
+        <p:message for="cpf" />
+
+        <!-- Campo Email -->
+        <p:outputLabel for="email" value="Email:" />
+        <p:inputText id="email" value="#{usuarioBean.email}" required="true" requiredMessage="O email é obrigatório." />
+        <p:message for="email" />
+
+        <!-- Selecionar Perfil -->
+        <p:outputLabel for="perfil" value="Perfil:" />
+        <p:selectOneMenu id="perfil" value="#{usuarioBean.perfil}" required="true" requiredMessage="O perfil é obrigatório.">
+            <f:selectItem itemLabel="Selecione o perfil" itemValue="" />
+            <f:selectItems value="#{perfilBean.perfis}" var="perfil" itemLabel="#{perfil.descricao}" itemValue="#{perfil}" />
+        </p:selectOneMenu>
+        <p:message for="perfil" />
+
+        <!-- Campos de Endereço -->
+        <h2>Endereço</h2>
+        
+        <!-- Campo Logradouro -->
+        <p:outputLabel for="logradouro" value="Logradouro:" />
+        <p:inputText id="logradouro" value="#{enderecoBean.logradouro}" required="true" requiredMessage="O logradouro é obrigatório." />
+        <p:message for="logradouro" />
+
+        <!-- Campo Número -->
+        <p:outputLabel for="numero" value="Número:" />
+        <p:inputText id="numero" value="#{enderecoBean.numero}" required="true" requiredMessage="O número é obrigatório." />
+        <p:message for="numero" />
+
+        <!-- Campo Complemento -->
+        <p:outputLabel for="complemento" value="Complemento:" />
+        <p:inputText id="complemento" value="#{enderecoBean.complemento}" />
+        <p:message for="complemento" />
+
+        <!-- Campo Bairro -->
+        <p:outputLabel for="bairro" value="Bairro:" />
+        <p:inputText id="bairro" value="#{enderecoBean.bairro}" required="true" requiredMessage="O bairro é obrigatório." />
+        <p:message for="bairro" />
+
+        <!-- Campo Cidade -->
+        <p:outputLabel for="cidade" value="Cidade:" />
+        <p:inputText id="cidade" value="#{enderecoBean.cidade}" required="true" requiredMessage="A cidade é obrigatória." />
+        <p:message for="cidade" />
+
+        <!-- Campo Estado -->
+        <p:outputLabel for="estado" value="Estado:" />
+        <p:inputText id="estado" value="#{enderecoBean.estado}" required="true" requiredMessage="O estado é obrigatório." />
+        <p:message for="estado" />
+
+        <!-- Campo CEP -->
+        <p:outputLabel for="cep" value="CEP:" />
+        <p:inputMask id="cep" mask="99999-999" value="#{enderecoBean.cep}" required="true" requiredMessage="O CEP é obrigatório." />
+        <p:message for="cep" />
+
+        <!-- Botões -->
+        <p:commandButton value="Salvar" action="#{usuarioBean.salvar}" update="@form" />
+        <p:commandButton value="Voltar" action="pesquisaUsuario.xhtml?faces-redirect=true" />
+
+    </h:form>
+</h:body>
+</html>
